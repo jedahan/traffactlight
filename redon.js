@@ -1,9 +1,11 @@
 var gpio = require("gpio");
 
-
-var red = gpio.export(14, {
-  direction: 'out',
-  ready: function() {
-    red.set();
-  }
-});
+for(int i=0; i<28; i++) {
+  var red = gpio.export(i, {
+    direction: 'out',
+    ready: function() {
+      console.log(i);
+      red.set();
+    }
+  });
+}
