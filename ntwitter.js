@@ -9,17 +9,9 @@ var t = new twitter({
     access_token_secret: credentials.access_token_secret
 });
 
-var red = gpio.export(15, {
-   direction: "out"
-});
-
-var yellow = gpio.export(16, {
-   direction: "out"
-});
-
-var green = gpio.export(18, {
-   direction: "out"
-});
+var red = gpio.export(14, { direction: "out" });
+var yellow = gpio.export(15, { direction: "out" });
+var green = gpio.export(18, { direction: "out" });
 
 t.stream(
     'statuses/filter',
@@ -32,17 +24,17 @@ t.stream(
             var falsefact = tweet.text.match("False") > -1;
             
             if(truefact) {
-              green.set();
+              green.set(1);
             } else {
               green.reset();
             }
             if(falsefact) {
-              red.set();
+              red.set(1);
             } else {
               red.reset();
             }
             if(maybe) {
-              yellow.set();
+              yellow.set(1);
             } else {
               yellow.reset();
             }
