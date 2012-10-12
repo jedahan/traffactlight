@@ -1,6 +1,6 @@
 var twitter = require('ntwitter');
 var credentials = require('./consumer.json');
-var gpio = require("gpio");
+var fs = require('fs');
 
 var t = new twitter({
   consumer_key: credentials.consumer_key,
@@ -8,10 +8,6 @@ var t = new twitter({
   access_token_key: credentials.access_token_key,
   access_token_secret: credentials.access_token_secret
 });
-
-var red = gpio.export(14, {direction: 'out'});
-var yellow = gpio.export(15,{direction: 'out'});
-var green = gpio.export(18,{direction: 'out'});
 
 t.stream(
   'statuses/filter',
@@ -21,19 +17,19 @@ t.stream(
       console.log(tweet.text);
       
       if(tweet.text.match("True") > -1) {
-        green.set();
+        fs.writeFileSync("/sys/class/gpio/gpio14/value", "1");
       } else {
-        green.reset();
+        fs.writeFileSync("/sys/class/gpio/gpio14/value", "0");
       }
       if(tweet.text.indexOf("aybe") > -1) {
-        yellow.set();
+        fs.writeFileSync("/sys/class/gpio/gpio15/value", "1");
       } else {
-        yellow.reset();
+        fs.writeFileSync("/sys/class/gpio/gpio15/value", "0");
       }
       if(tweet.text.match("False") > -1) {
-        red.set();
+        fs.writeFileSync("/sys/class/gpio/gpio18/value", "1");
       } else {
-        red.reset();
+        fs.writeFileSync("/sys/class/gpio/gpio18/value", "0");
       }
     });
   }
