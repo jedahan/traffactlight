@@ -14,22 +14,24 @@ t.stream(
   { follow: [874569288,8953122] },
   function(stream) {
     stream.on('data', function(tweet) {
-      console.log(tweet.text);
-      console.log(tweet);
-      if(tweet.text.match("True") > -1) {
-        fs.writeFileSync("/sys/class/gpio/gpio14/value", "1");
-      } else {
-        fs.writeFileSync("/sys/class/gpio/gpio14/value", "0");
-      }
-      if(tweet.text.indexOf("aybe") > -1) {
-        fs.writeFileSync("/sys/class/gpio/gpio15/value", "1");
-      } else {
-        fs.writeFileSync("/sys/class/gpio/gpio15/value", "0");
-      }
-      if(tweet.text.match("False") > -1) {
-        fs.writeFileSync("/sys/class/gpio/gpio18/value", "1");
-      } else {
-        fs.writeFileSync("/sys/class/gpio/gpio18/value", "0");
+      if(tweet.user.id === 8953122) {
+        console.log(tweet.text);
+        
+        if(tweet.text.match("True") > -1) {
+          fs.writeFileSync("/sys/class/gpio/gpio14/value", "1");
+        } else {
+          fs.writeFileSync("/sys/class/gpio/gpio14/value", "0");
+        }
+        if(tweet.text.indexOf("aybe") > -1) {
+          fs.writeFileSync("/sys/class/gpio/gpio15/value", "1");
+        } else {
+          fs.writeFileSync("/sys/class/gpio/gpio15/value", "0");
+        }
+        if(tweet.text.match("False") > -1) {
+          fs.writeFileSync("/sys/class/gpio/gpio18/value", "1");
+        } else {
+          fs.writeFileSync("/sys/class/gpio/gpio18/value", "0");
+        }
       }
     });
   }
