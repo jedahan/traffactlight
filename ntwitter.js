@@ -15,7 +15,7 @@ t.stream(
   function(stream) {
     stream.on('data', function(tweet) {
       console.log(tweet.text);
-      
+      console.log(tweet);
       if(tweet.text.match("True") > -1) {
         fs.writeFileSync("/sys/class/gpio/gpio14/value", "1");
       } else {
