@@ -10,19 +10,19 @@ var t = new twitter({
 });
 
 var red = gpio.export(14, { 
-  direction: "out",
+  direction: 'out',
   ready: function() {
     red.setDirection("out");
   }
 });
-var yellow = gpio.export(15,
-  direction: "out",
+var yellow = gpio.export(15,{
+  direction: 'out',
   ready: function() {
     yellow.setDirection("out");
   }
 });
-var green = gpio.export(18,
-  direction: "out",
+var green = gpio.export(18,{
+  direction: 'out',
   ready: function() {
     green.setDirection("out");
   }
