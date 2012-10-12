@@ -9,9 +9,24 @@ var t = new twitter({
     access_token_secret: credentials.access_token_secret
 });
 
-var red = gpio.export(14, { direction: "out" });
-var yellow = gpio.export(15, { direction: "out" });
-var green = gpio.export(18, { direction: "out" });
+var red = gpio.export(14, { 
+  direction: "out",
+  ready: function() {
+    red.setDirection("out");
+  }
+});
+var yellow = gpio.export(15,
+  direction: "out",
+  ready: function() {
+    yellow.setDirection("out");
+  }
+});
+var green = gpio.export(18,
+  direction: "out",
+  ready: function() {
+    green.setDirection("out");
+  }
+});
 
 t.stream(
     'statuses/filter',
@@ -28,16 +43,17 @@ t.stream(
             } else {
               green.reset();
             }
-            if(falsefact) {
-              red.set(1);
-            } else {
-              red.reset();
-            }
             if(maybe) {
               yellow.set(1);
             } else {
               yellow.reset();
             }
+            if(falsefact) {
+              red.set(1);
+            } else {
+              red.reset();
+            }
+            
             console.log(truefact,maybe,falsefact);
         });
     }
