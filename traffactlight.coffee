@@ -19,6 +19,10 @@ t = new twitter(
 t.stream 'statuses/filter', { follow: users }, (stream) ->
   stream.on 'data', (tweet) ->
     if tweet.user.id in users
-      fs.writeFileSync l.red, +(/false/i.test tweet.text)
-      fs.writeFileSync l.yellow, +(/maybe/i.test tweet.text)
-      fs.writeFileSync l.green, +(/true/i.test tweet.text)
+      [lying,maybe,truthing] = (regex.test tweet.text for regex in [/false/i,/maybe/i,/true/i])
+
+      fs.writeFileSync l.red, +lying
+      fs.writeFileSync l.yellow, +maybe
+      fs.writeFileSync l.green, +truthing
+
+      t.retweetStatus(tweet.id, ->) if lying or maybe or truthing
