@@ -1,0 +1,8 @@
+{ "name": "traffactlight"
+, "version": "0.1.1"
+, "description": "If a candidate lies during the debates, show it on the traffic light"
+, "author": "Jonathan Dahan <jonathan@jedahan.com>"
+, "dependencies":
+  { "ntwitter": "0.5.x"
+  }
+}
