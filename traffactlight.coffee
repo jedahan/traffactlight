@@ -1,11 +1,14 @@
 fs = require 'fs'
 twitter = require 'ntwitter'
 credentials = require './credentials.json'
+gpio = require 'gpio'
 
 users = [874569288,8953122]
 
-l = red: 14, yellow: 15, green: 18
-l[color] = "/sys/class/gpio/gpio#{pin}/value" for color,pin of l
+l =
+  red: gpio.export 14
+  yellow: gpio.export 15
+  green: gpio.export 18
 
 t = new twitter(
   consumer_key: credentials.consumer_key
@@ -22,8 +25,8 @@ t.stream 'statuses/filter', { follow: users }, (stream) ->
       if lying or maybe or truthing
         console.log tweet.text
 
-        fs.writeFileSync l.red, +lying
-        fs.writeFileSync l.yellow, +maybe
-        fs.writeFileSync l.green, +truthing
+        l.red.set +lying
+        l.yellow.set +maybe
+        l.green.set +truthing
 
         t.retweetStatus tweet.id, ->
