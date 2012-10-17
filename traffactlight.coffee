@@ -4,8 +4,8 @@ credentials = require './credentials.json'
 
 users = [874569288,8953122]
 
-pins = red: 14, yellow: 15, green: 18
-pins[color] = "/sys/class/gpio/gpio#{pin}/value" for color,pin of pins
+l = red: 14, yellow: 15, green: 18
+l[color] = "/sys/class/gpio/gpio#{pin}/value" for color,pin of l
 
 t = new twitter(
   consumer_key: credentials.consumer_key
