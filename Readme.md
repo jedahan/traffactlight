@@ -5,4 +5,5 @@ Red light means drink!
 Drink from the blue cup when the democrat lies, drink from the red cup when the republican.
 
   npm install
-  coffee traffactlight.coffe
+  nano credentials.json.template
+  coffee traffactlight.coffee
