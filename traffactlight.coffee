@@ -1,14 +1,14 @@
 fs = require 'fs'
+gpio = require 'rpi-gpio'
 twitter = require 'ntwitter'
 credentials = require './credentials.json'
-gpio = require 'gpio'
 
 users = [874569288,8953122]
 
 l =
-  red: gpio.export 14
-  yellow: gpio.export 15
-  green: gpio.export 18
+  red: gpio.setup 14
+  yellow: gpio.setup 15
+  green: gpio.setup 18
 
 t = new twitter(
   consumer_key: credentials.consumer_key
@@ -25,8 +25,8 @@ t.stream 'statuses/filter', { follow: users }, (stream) ->
       if lying or maybe or truthing
         console.log tweet.text
 
-        l.red.set +lying
-        l.yellow.set +maybe
-        l.green.set +truthing
+        gpio.write l.red, +lying
+        gpio.write l.yellow, +maybe
+        gpio.write l.green, +truthing
 
         t.retweetStatus tweet.id, ->
