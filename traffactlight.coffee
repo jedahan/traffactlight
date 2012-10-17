@@ -22,6 +22,8 @@ t.stream 'statuses/filter', { follow: users }, (stream) ->
       [lying,maybe,truthing] = (regex.test tweet.text for regex in [/false/i,/maybe/i,/true/i])
 
       if lying or maybe or truthing
+        console.log tweet.text
+
         fs.writeFileSync l.red, +lying
         fs.writeFileSync l.yellow, +maybe
         fs.writeFileSync l.green, +truthing
